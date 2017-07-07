@@ -1,5 +1,5 @@
-import {Component, OnInit} from "@angular/core";
-import {IonicPage, ToastController, ViewController, AlertController, Platform} from "ionic-angular";
+import {Component} from "@angular/core";
+import {AlertController, IonicPage, Platform, ToastController, ViewController} from "ionic-angular";
 import {AppServer} from "../../services/appServer";
 import {AppGlobal} from "../../AppGlobal";
 import {User} from "../../Entity/User";
