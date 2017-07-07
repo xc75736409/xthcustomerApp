@@ -1,0 +1,64 @@
+<!--
+  Generated template for the MessagePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{(message.messagetype == 0)?message.sendname:'系统消息'}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+    <ion-item>
+      <ion-label>{{message.sendtime}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>消息类别：{{(message.messagetype == 0)?'普通消息':'通知通告'}}</ion-label>
+    </ion-item>
+    <ion-item no-lines>
+      <ion-label>消息内容：</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-textarea [(ngModel)]="message.content" readonly="true"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-label>此消息{{(message.needreceive)?'':'不'}}要求回复</ion-label>
+      <ion-label *ngIf="message.needreceive" text-right color="danger">{{(message.isreceive == true)?'已':'未'}}回复</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label *ngIf="message.needreceive">回复时限为：{{message.receiveendtime}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>回复时间：{{receive.receivetime}}</ion-label>
+    </ion-item>
+    <ion-item no-lines>
+      <ion-label>回复内容：</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-textarea [(ngModel)]="receive.content" ></ion-textarea>
+    </ion-item>
+    <ion-item text-center no-lines>
+      <button padding ion-button large="true" color="secondary">确认回复</button>
+    </ion-item>
+    <ion-list no-padding *ngFor="let item of message.receives">
+      <ion-item>
+        <ion-label>回复人：{{item.receivename}}</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>回复时间：{{item.receivetime}}</ion-label>
+      </ion-item>
+      <ion-item no-lines>
+        <ion-label>回复内容：</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-textarea [(ngModel)]="item.content" ></ion-textarea>
+      </ion-item>
+      </ion-list>
+  </ion-list>
+</ion-content>

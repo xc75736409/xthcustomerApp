@@ -1,0 +1,58 @@
+<!--
+  Generated template for the MessagePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>假期申请</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+    <ion-item>
+      <ion-avatar  item-start>
+        <img src="{{leave.img}}">
+      </ion-avatar >
+      <h3>{{leave.name}}</h3>
+      <ion-note item-end text-center>{{leave.sendtime | date:'yyyy-mm-dd'}}</ion-note>
+    </ion-item>
+    <ion-item no-lines>
+      申请类型:
+    </ion-item>
+    <ion-item>
+      <ion-input [(ngModel)]="leave.leavetype" readonly></ion-input>
+    </ion-item>
+    <ion-item no-lines>
+      假期开始时间:
+    </ion-item>
+    <ion-item>
+      <ion-input type="date" [(ngModel)]="leave.begintime" readonly></ion-input>
+    </ion-item>
+    <ion-item no-lines>
+      假期结束时间:
+    </ion-item>
+    <ion-item>
+      <ion-input type="date" [(ngModel)]="leave.endtime" readonly></ion-input>
+    </ion-item>
+    <ion-item no-lines>
+      事由:
+    </ion-item>
+    <ion-item>
+      <ion-textarea [(ngModel)]="leave.reason" readonly></ion-textarea>
+    </ion-item>
+    <ion-item *ngIf="leave.examinetype == '0'">
+      <button ion-button col-6 large (click)="agree(true);">同意</button>
+      <button ion-button color="danger" col-6 large (click)="agree(false);">拒绝</button>
+    </ion-item>
+    <ion-item text-center *ngIf="leave.examinetype != '0'">
+      <ion-label item-start>结果</ion-label>
+      <button item-left ion-button color="dark" large>假期申请已{{leave.examinetype == 1?'同意':'拒绝'}}</button>
+    </ion-item>
+  </ion-list>
+</ion-content>
