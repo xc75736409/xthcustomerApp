@@ -29,10 +29,11 @@ export class AppGlobal {
    */
   public static getInstance(): AppGlobal {
     if (AppGlobal.instance.user.id == null || AppGlobal.instance.user.id == undefined) {
-      AppGlobal.instance.user.id = sessionStorage.getItem("id");
-      AppGlobal.instance.user.username = sessionStorage.getItem("username");
-      AppGlobal.instance.user.realname = sessionStorage.getItem("realname");
-      AppGlobal.instance.user.role = sessionStorage.getItem("role");
+      AppGlobal.instance.user.id = localStorage.getItem("id");
+      AppGlobal.instance.user.username = localStorage.getItem("username");
+      AppGlobal.instance.user.password = localStorage.getItem("password");
+      AppGlobal.instance.user.realname = localStorage.getItem("realname");
+      AppGlobal.instance.user.role = localStorage.getItem("role");
     }
     return AppGlobal.instance;
   }

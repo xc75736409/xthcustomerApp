@@ -3,12 +3,12 @@
  * 登录用户信息
  */
 
-export class User{
-  id:string;
+export class User {
+  id: string;
   username: string;
-  // password: string;
+  password: string;
   realname: string;
   role: string;
-  key:string='app';
+  key: string = 'app';
 
 }

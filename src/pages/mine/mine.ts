@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {Component} from '@angular/core';
+import {AlertController, IonicPage, ModalController, NavController, NavParams, Platform} from 'ionic-angular';
+import {User} from "../../Entity/User";
+import {AppGlobal} from "../../AppGlobal";
+import {LoginPage} from "../login/login";
 /**
  * Generated class for the MinePage page.
  *
@@ -12,17 +15,45 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'mine.html',
 })
 export class MinePage {
-  //姓名
-  name: string = '张强';
-  //工作号
-  worknum:number =123456;
-  //人员类型
-  type:string ='DJ服务员';
+  user: User = AppGlobal.getInstance().user;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private modalCtrl: ModalController,
+              public navCtrl: NavController,
+              public navParams: NavParams,
+              private alertCtrl: AlertController,
+              private platform: Platform) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad MinePage');
+  goLogin() {
+    this.alertCtrl.create({
+      title: '确认重新登录？',
+      buttons: [{text: '取消'},
+        {
+          text: '确定',
+          handler: () => {
+            let modal = this.modalCtrl.create(LoginPage);
+            modal.present();
+            modal.onDidDismiss(data => {
+              data && console.log(data);
+            });
+          }
+        }
+      ]
+    }).present();
+
+  }
+
+  exitSoftware() {
+    this.alertCtrl.create({
+      title: '确认退出软件？',
+      buttons: [{text: '取消'},
+        {
+          text: '确定',
+          handler: () => {
+            this.platform.exitApp();
+          }
+        }
+      ]
+    }).present();
   }
 }

@@ -1,7 +1,8 @@
-import {Component} from '@angular/core';
-import {IonicPage, NavController, ToastController} from 'ionic-angular';
-import {MainPage} from "../main/main";
+import {Component, OnInit} from "@angular/core";
+import {IonicPage, ToastController, ViewController, AlertController, Platform} from "ionic-angular";
 import {AppServer} from "../../services/appServer";
+import {AppGlobal} from "../../AppGlobal";
+import {User} from "../../Entity/User";
 
 /**
  * Generated class for the LoginPage page.
@@ -15,39 +16,50 @@ import {AppServer} from "../../services/appServer";
   templateUrl: 'login.html',
 })
 export class LoginPage {
-
   username: string = '';
   password: string = '';
+  user: User = AppGlobal.getInstance().user;
+  canLeave: boolean = false;
 
-  constructor(private navCtrl: NavController,
+  constructor(private viewCtrl: ViewController,
               private appServer: AppServer,
-              private toastCtrl: ToastController,) {
+              private toastCtrl: ToastController,
+              private platform: Platform,
+              private alertCtrl: AlertController) { }
+
+  ionViewWillEnter() {
+    console.log(this.user);
+    if (this.user.id != null && this.user.id != '') {
+      this.username = this.user.username;
+      this.password = this.user.password;
+    }
   }
 
   toLogin() {
-    if(this.username==''){
+    if (this.username == '') {
       this.toastCtrl.create({
         message: '请输入用户名',
         duration: 3000
       }).present();
       return;
     }
-    if(this.password==''){
+    if (this.password == '') {
       this.toastCtrl.create({
         message: '请输入密码',
         duration: 3000
       }).present();
       return;
     }
-    this.appServer.httpPost("/app/userLogin",{userName:this.username,passWord:this.password}).subscribe(
-      res=>{
+    this.appServer.httpPost("/app/userLogin", {userName: this.username, passWord: this.password}).subscribe(
+      res => {
         if (res['state'] == '201') {
-          sessionStorage.setItem("id", res['user']['id']);
-          sessionStorage.setItem("username", this.username);
-          sessionStorage.setItem("realname", res['user']['realname']);
-          sessionStorage.setItem("role", res['user']['role']);
-          this.navCtrl.setRoot(MainPage);
-        }else{
+          localStorage.setItem("id", res['user']['id']);
+          localStorage.setItem("username", this.username);
+          localStorage.setItem("password", this.password);
+          localStorage.setItem("realname", res['user']['realname']);
+          localStorage.setItem("role", res['user']['role']);
+          this.viewCtrl.dismiss(AppGlobal.getInstance().user);
+        } else {
           this.toastCtrl.create({
             message: '用户名或密码错误',
             duration: 3000,
@@ -61,4 +73,23 @@ export class LoginPage {
     );
   }
 
+  ionViewCanLeave(): boolean {
+    let bool = !!this.user.id;
+    if (this.canLeave || bool) {
+      return true;
+    } else {
+      this.alertCtrl.create({
+        title: '确认退出软件？',
+        buttons: [{text: '取消'},
+          {
+            text: '确定',
+            handler: () => {
+              this.platform.exitApp();
+            }
+          }
+        ]
+      }).present();
+      return false;
+    }
+  }
 }

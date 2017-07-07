@@ -2,7 +2,7 @@ import {Component} from "@angular/core";
 import {IonicPage, NavController, NavParams} from "ionic-angular";
 import {MinePage} from "../mine/mine";
 import {MessagePage} from "../management/message";
-import {StatistePageModule} from "../statiste/statiste.module";
+import {StatistePage} from "../statiste/statiste";
 
 /**
  * Generated class for the MainPage page.
@@ -21,12 +21,7 @@ export class MainPage {
   mine: any;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.message= MessagePage;
-    this.statistics= StatistePageModule;
+    this.statistics= StatistePage;
     this.mine= MinePage;
   }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad MainPage');
-  }
-
 }

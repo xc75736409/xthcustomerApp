@@ -13,7 +13,7 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content class="bg-color">
 
   <ion-list>
 
@@ -21,22 +21,19 @@
       <ion-avatar  item-left>
         <img src="assets/img/thumbnail-totoro.png">
       </ion-avatar>
-      <h3>{{name}}</h3><h5>（{{type}}）</h5>
-      <p>账号：{{worknum}}</p>
-      <ion-thumbnail  item-right>
-        <img src="assets/img/thumbnail-totoro.png">
-      </ion-thumbnail>
+      <h3>{{user.realname}}{{user.role=='undefined'?'':user.role}}</h3>
+      <p>编号：{{user.username}}</p>
     </ion-item>
+  </ion-list>
 
-
-    <ion-item>
-      <ion-icon name="book" item-left></ion-icon> 场所分级管理级别
-
-      <h1 item-right>A</h1>
-
+  <ion-list>
+    <ion-item (click)="exitSoftware()" hideWhen="ios">
+      <ion-icon name="log-out" item-left color="danger"></ion-icon>
+      退出软件
     </ion-item>
-    <ion-item>
-      <ion-icon name="settings" item-left></ion-icon> 注销
+    <ion-item (click)="goLogin()">
+      <ion-icon name="log-in" item-left color="danger"></ion-icon>
+      重新登录
     </ion-item>
   </ion-list>
 </ion-content>

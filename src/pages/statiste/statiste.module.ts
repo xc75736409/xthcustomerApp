@@ -11,9 +11,6 @@ import { StatistePage } from './statiste';
   ],
   exports: [
     StatistePage
-  ],
-  entryComponents: [
-    StatistePage
-  ],
+  ]
 })
 export class StatistePageModule {}
