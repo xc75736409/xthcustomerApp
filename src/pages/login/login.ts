@@ -3,6 +3,7 @@ import {AlertController, IonicPage, Platform, ToastController, ViewController} f
 import {AppServer} from "../../services/appServer";
 import {AppGlobal} from "../../AppGlobal";
 import {User} from "../../Entity/User";
+import {NativeService} from "../../providers/NativeService";
 
 /**
  * Generated class for the LoginPage page.
@@ -25,7 +26,8 @@ export class LoginPage {
               private appServer: AppServer,
               private toastCtrl: ToastController,
               private platform: Platform,
-              private alertCtrl: AlertController) { }
+              private alertCtrl: AlertController,
+              private nativeService: NativeService) { }
 
   ionViewWillEnter() {
     console.log(this.user);
@@ -37,38 +39,28 @@ export class LoginPage {
 
   toLogin() {
     if (this.username == '') {
-      this.toastCtrl.create({
-        message: '请输入用户名',
-        duration: 3000
-      }).present();
+      this.nativeService.showToast('请输入用户名',2000);
       return;
     }
     if (this.password == '') {
-      this.toastCtrl.create({
-        message: '请输入密码',
-        duration: 3000
-      }).present();
+      this.nativeService.showToast('请输入密码',2000);
       return;
     }
+    this.nativeService.showLoading();
     this.appServer.httpPost("/app/userLogin", {userName: this.username, passWord: this.password}).subscribe(
       res => {
-        if (res['state'] == '201') {
+        this.nativeService.hideLoading();
+        if (this.nativeService.isHttpSuc(res)) {
           localStorage.setItem("id", res['user']['id']);
           localStorage.setItem("username", this.username);
           localStorage.setItem("password", this.password);
           localStorage.setItem("realname", res['user']['realname']);
           localStorage.setItem("role", res['user']['role']);
           this.viewCtrl.dismiss(AppGlobal.getInstance().user);
-        } else {
-          this.toastCtrl.create({
-            message: '用户名或密码错误',
-            duration: 3000,
-          }).present();
         }
       },
       error => {
-        alert('未知错误');
-        console.log(error);
+        this.nativeService.requestFailed(error);
       }
     );
   }
