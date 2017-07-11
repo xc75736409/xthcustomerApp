@@ -151,7 +151,7 @@ export class NativeService {
       if (state == '502') errMsg = '查询失败';
       if (state == '503') errMsg = '操作失败';
       this.alertCtrl.create({
-        title: state,
+        title: '错误编号'+state,
         subTitle: errMsg,
         buttons: [{text: '确定'}]
       }).present();
