@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>{{!opType?'详细':'编辑'}}</ion-title>
+    <ion-title>{{opType?'详细':'编辑'}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -42,7 +42,7 @@
       <ion-input [(ngModel)]="customer.createtime" readonly></ion-input>
     </ion-item>
   </ion-list>
-  <div padding *ngIf="opType">
+  <div padding *ngIf="!opType">
     <button ion-button color="primary"  block (click)="save()" >保存</button>
   </div>
 </ion-content>

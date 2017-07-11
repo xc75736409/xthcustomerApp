@@ -4,6 +4,8 @@ import {AppServer} from "../../services/appServer";
 import {NativeService} from "../../providers/NativeService";
 import {CustomersParas} from "../../Entity/QueryParas";
 import {EditMessagePage} from "./edit-message/edit-message";
+import {Customer} from "../../Entity/Customer";
+import {Utils} from "../../providers/Utils";
 
 /**
  * Generated class for the MessagePage page.
@@ -27,10 +29,6 @@ export class MessagePage {
               private nativeService: NativeService) {
   }
 
-
-  ionViewDidLoad() {
-    this.loadData();
-  }
 
   doRefresh(refresher) {
     console.log('Begin async operation', refresher);
@@ -97,13 +95,13 @@ export class MessagePage {
   //删除操作
   deleteItem(item){
     this.nativeService.showLoading();
-    this.appServer.httpPost("/app/customer/operateCustomer", {id:item['id']}).subscribe(
+    this.appServer.httpPost("/app/customer/operateCustomer", {id:item['id'],operateType:'delete'}).subscribe(
       res => {
         this.nativeService.hideLoading();
         if (this.nativeService.isHttpSuc(res)) {
           for (let i=0;i<this.customers.length;i++){
             if(item['id']==this.customers[i]['id']){
-              this.customers.indexOf(i,1);
+              this.customers.splice(i,1);
             }
           }
 
@@ -126,6 +124,16 @@ export class MessagePage {
     this.navCtrl.push(EditMessagePage,{
       op:'more',
       item:item
+    });
+  }
+  //添加新客户
+  addItem(){
+    let customer:Customer=new Customer();
+    customer.operateType='add';
+    customer.createtime=Utils.dateFormat(new Date());
+    this.navCtrl.push(EditMessagePage,{
+      op:'add',
+      item:customer
     });
   }
 }

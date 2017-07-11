@@ -20,23 +20,23 @@ export class EditMessagePage {
 
   opType: boolean = false;
 
-  constructor(public navCtrl: NavController ,
+  constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private appServer: AppServer,
               private nativeService: NativeService) {
-    this.opType = navParams.get('op') == 'update' ? true : false;
+    this.opType = navParams.get('op') == 'more' ? true : false;
     this.customer = navParams.get('item') as Customer;
+    if (navParams.get('op') == 'update') this.customer.operateType = 'update';
     console.log(this.customer);
   }
 
   save() {
-    this.customer.operateType='update';
     this.nativeService.showLoading();
     this.appServer.httpPost("/app/customer/operateCustomer", this.customer).subscribe(
       res => {
         this.nativeService.hideLoading();
         if (this.nativeService.isHttpSuc(res)) {
-            this.nativeService.showToast("保存成功",2000)
+          this.nativeService.showToast("保存成功", 2000)
         }
       },
       error => {
