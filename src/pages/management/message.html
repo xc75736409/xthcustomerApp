@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>消息</ion-title>
+    <ion-title text-center>客户管理</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -15,23 +15,61 @@
 
 <ion-content padding>
   <ion-refresher (ionRefresh)="doRefresh($event)">
-         <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh"
-           refreshingSpinner="circles" refreshingText="正在加载，请稍后...">
-         </ion-refresher-content>
-       </ion-refresher>
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="刷新"
+                           refreshingSpinner="circles" refreshingText="正在加载，请稍后...">
+    </ion-refresher-content>
+  </ion-refresher>
 
+  <ion-card>
+    <ion-card-header>
+      查询
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-label>姓名</ion-label>
+          <ion-input type="text" [(ngModel)]="customersParas.name"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>电话</ion-label>
+          <ion-input type="number" [(ngModel)]="customersParas.phone"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>查询开始时间</ion-label>
+          <ion-datetime displayFormat="YYYY-MM-DD" cancelText="取消" doneText="确定" [(ngModel)]="customersParas.bcreatetime"></ion-datetime>
+        </ion-item>
+        <ion-item>
+          <ion-label>查询结束时间</ion-label>
+          <ion-datetime displayFormat="YYYY-MM-DD" cancelText="取消" doneText="确定" [(ngModel)]="customersParas.ecreatetime"></ion-datetime>
+        </ion-item>
+      </ion-list>
+        <div padding>
+          <button ion-button color="primary" (click)="loadData()" block>查询</button>
+        </div>
+      </ion-card-content>
+  </ion-card>
 
   <ion-list>
-    <ion-item (click)="go(item);"*ngFor="let item of messageList">
-      <ion-avatar  item-start>
-        <ion-badge color="danger" class="icon-badge-rb" float-right [ngClass]="{'icon-badge-hide': item.isread == 1}">&nbsp;</ion-badge>
-        <!-- <ion-badge item-right color="danger" border-radius="2px">&nbsp;</ion-badge>-->
-        <img src="assets/img/thumbnail-totoro.png">
-      </ion-avatar >
-      <h3>{{(item.messagetype == 0)?(item.sendname+'&nbsp;&nbsp;&nbsp;&nbsp;'+item.sendtype):item.title}}</h3>
-      <h6>{{item.content | slice:0:15}}</h6>
-      <ion-note item-end text-center>{{messagetypes[item.messagetype].name}}<br>{{item.sendtime | date:'yyyy-mm-dd'}}</ion-note>
-    </ion-item>
+    <ion-item-sliding *ngFor="let item of customers">
+      <ion-item>
+        <h3>{{ item.name }}({{item.phone}})</h3>
+        <ion-icon name="ios-arrow-forward" item-end></ion-icon>
+      </ion-item>
+      <ion-item-options side="right">
+        <button ion-button color="primary" (click)="updateItem(item)" >
+          <ion-icon name="create"></ion-icon>
+          编辑
+        </button>
+        <button ion-button color="secondary" (click)="moreItem(item)">
+          <ion-icon name="more"></ion-icon>
+          详细
+        </button>
+        <button ion-button color="danger" (click)="deleteItem(item)">
+          <ion-icon name="trash"></ion-icon>
+          删除
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
   </ion-list>
 
 

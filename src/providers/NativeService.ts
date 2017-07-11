@@ -149,7 +149,7 @@ export class NativeService {
       if (state == '500') errMsg = '请求失败';
       if (state == '501') errMsg = '用户名或密码错误';
       if (state == '502') errMsg = '查询失败';
-      if (state == '503') errMsg = '添加失败';
+      if (state == '503') errMsg = '操作失败';
       this.alertCtrl.create({
         title: state,
         subTitle: errMsg,
@@ -199,7 +199,7 @@ export class NativeService {
       this.toastCtrl.create({
         message: message,
         duration: duration,
-        position: 'middle',
+        position: 'bottom',
         showCloseButton: false
       }).present();
     }
