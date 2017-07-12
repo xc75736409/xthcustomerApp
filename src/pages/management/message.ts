@@ -6,6 +6,7 @@ import {CustomersParas} from "../../Entity/QueryParas";
 import {EditMessagePage} from "./edit-message/edit-message";
 import {Customer} from "../../Entity/Customer";
 import {Utils} from "../../providers/Utils";
+import {ConsumeListPage} from "./consume_list/consume_list";
 
 /**
  * Generated class for the MessagePage page.
@@ -66,7 +67,7 @@ export class MessagePage {
     );
   }
 
-  //上拉菜单
+  //下拉菜单
   doInfinite(infiniteScroll) {
     if (this.customersParas.maxSize == 0) {
       infiniteScroll.complete();
@@ -134,6 +135,13 @@ export class MessagePage {
     this.navCtrl.push(EditMessagePage,{
       op:'add',
       item:customer
+    });
+  }
+
+  //
+  consumeList(item){
+    this.navCtrl.push(ConsumeListPage,{
+      item:item
     });
   }
 }

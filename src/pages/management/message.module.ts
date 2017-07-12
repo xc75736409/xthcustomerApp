@@ -1,22 +1,16 @@
-import { NgModule } from '@angular/core';
+import {NgModule} from '@angular/core';
 import {IonicModule} from 'ionic-angular';
-import { MessagePage } from './message';
-import {AttendanceMessagePage} from "./attendance-message/attendance-message";
-import {LeaveApplicationPage} from "./attendance-message/leave-application/leave-application";
-import {AttendanceDetailPage} from "./attendance-message/attendance-detail/attendance-detail";
-import {PatrolMessagePage} from "./patrol-message/patrol-message";
-import {AbnormalMessagePage} from "./abnormal-message/abnormal-message";
+import {MessagePage} from './message';
 import {EditMessagePage} from "./edit-message/edit-message";
+import {ConsumeListPage} from "./consume_list/consume_list";
+import {EditConsumePage} from "./edit_consume/edit_consume";
 
 @NgModule({
   declarations: [
     MessagePage,
     EditMessagePage,
-    AttendanceMessagePage,
-    LeaveApplicationPage,
-    AttendanceDetailPage,
-    PatrolMessagePage,
-    AbnormalMessagePage
+    ConsumeListPage,
+    EditConsumePage
   ],
   imports: [
     // IonicPageModule.forChild(MessagePage),
@@ -28,12 +22,10 @@ import {EditMessagePage} from "./edit-message/edit-message";
   entryComponents: [
     MessagePage,
     EditMessagePage,
-    AttendanceMessagePage,
-    LeaveApplicationPage,
-    AttendanceDetailPage,
-    PatrolMessagePage,
-    AbnormalMessagePage
+    ConsumeListPage,
+    EditConsumePage
   ],
 
 })
-export class MessagePageModule {}
+export class MessagePageModule {
+}

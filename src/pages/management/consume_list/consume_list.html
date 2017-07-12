@@ -1,0 +1,64 @@
+<!--
+  Generated template for the MessagePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>消费记录</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <!--上拉刷新-->
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="刷新"
+                           refreshingSpinner="circles" refreshingText="正在加载，请稍后...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <!--客户信息显示-->
+  <ion-card>
+    <ion-label float-left padding>{{customer.name}}[{{customer.phone}}]</ion-label>
+    <ion-label ion-button float-end clear (click)="addItem()">
+      <ion-icon name="add"></ion-icon>
+    </ion-label>
+  </ion-card>
+
+  <!--客户消费信息list-->
+  <ion-list>
+    <ion-item-sliding *ngFor="let item of ConsumeList">
+      <ion-item (click)="moreItem(item)">
+        <h3>金额：{{ item.money }}</h3>
+        <p>{{item.createtime}}</p>
+        <ion-note  item-end>{{item.createperple}}</ion-note>
+      </ion-item>
+      <ion-item-options side="right">
+        <button ion-button color="primary" (click)="updateItem(item)">
+          <ion-icon name="create"></ion-icon>
+          编辑
+        </button>
+        <button ion-button color="secondary" (click)="moreItem(item)">
+          <ion-icon name="more"></ion-icon>
+          详细
+        </button>
+        <button ion-button color="danger" (click)="deleteItem(item)">
+          <ion-icon name="trash"></ion-icon>
+          删除
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+  <!--下拉加载-->
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="正在加载，请稍后...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

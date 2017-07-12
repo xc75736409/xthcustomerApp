@@ -12,3 +12,7 @@ export class CustomersParas extends Pages{
   bcreatetime:string;
   ecreatetime:string;
 }
+
+export class ConsumeParas extends Pages{
+  customerId:string;
+}
