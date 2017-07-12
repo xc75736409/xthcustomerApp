@@ -1,14 +1,14 @@
 page-message {
+  .icon-badge-rb {
+    // background-color: red;
+    border-radius: 50px;
+    height: 10px;
+    width: 6px;
+    padding: 0px;
+    overflow: hidden;
+  }
+  .icon-badge-hide{
+    background-color: rgba(255, 255, 255, 0);
+  }
 
-}
-.icon-badge-rb {
- // background-color: red;
-  border-radius: 50px;
-  height: 10px;
-  width: 6px;
-  padding: 0px;
-  overflow: hidden;
-}
-.icon-badge-hide{
-  background-color: rgba(255, 255, 255, 0);
 }
