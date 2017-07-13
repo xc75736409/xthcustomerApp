@@ -15,14 +15,20 @@ import {LoginPage} from "../login/login";
   templateUrl: 'mine.html',
 })
 export class MinePage {
-  user: User = AppGlobal.getInstance().user;
+  user: User;
 
   constructor(private modalCtrl: ModalController,
               public navCtrl: NavController,
               public navParams: NavParams,
               private alertCtrl: AlertController,
               private platform: Platform) {
+    this.initLoad();
   }
+
+
+  initLoad() {
+    this.user = AppGlobal.getInstance().user;
+  };
 
   goLogin() {
     this.alertCtrl.create({
@@ -34,6 +40,7 @@ export class MinePage {
             let modal = this.modalCtrl.create(LoginPage);
             modal.present();
             modal.onDidDismiss(data => {
+              this.initLoad();
               data && console.log(data);
             });
           }

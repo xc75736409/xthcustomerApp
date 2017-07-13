@@ -7,12 +7,64 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>statiste</ion-title>
+    <ion-title text-center>统计</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+  <!--上拉刷新-->
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="刷新"
+                           refreshingSpinner="circles" refreshingText="正在加载，请稍后...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-card>
+    <ion-card-title>统计条件</ion-card-title>
+    <ion-card-content>
+      <ion-list radio-group [(ngModel)]="statisteParas.groupType">
+        <ion-list-header>
+          统计类型
+        </ion-list-header>
+        <ion-item>
+          <ion-label>按消费金额统计</ion-label>
+          <ion-radio value="1"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>按消费次数统计</ion-label>
+          <ion-radio value="2"></ion-radio>
+        </ion-item>
+      </ion-list>
+      <ion-list>
+
+        <ion-label>统计开始时间</ion-label>
+        <ion-datetime displayFormat="YYYY-MM-DD" cancelText="取消" doneText="确定" [(ngModel)]="statisteParas.bcreatetime"></ion-datetime>
+        </ion-item>
+        <ion-item>
+          <ion-label>统计结束时间</ion-label>
+          <ion-datetime displayFormat="YYYY-MM-DD" cancelText="取消" doneText="确定" [(ngModel)]="statisteParas.ecreatetime"></ion-datetime>
+        </ion-item>
+      </ion-list>
+      <div padding>
+        <button ion-button color="primary" (click)="loadData()" block>查询</button>
+      </div>
+
+    </ion-card-content>
+  </ion-card>
+
+  <ion-list>
+    <ion-item (click)="consumeList(item)" *ngFor="let item of statisteList">
+      <h3>{{ item.name }}[{{item.phone}}]</h3>
+      <ion-note end>{{item.total}}</ion-note>
+    </ion-item>
+  </ion-list>
+  <!--下拉加载-->
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="正在加载，请稍后...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 
 </ion-content>

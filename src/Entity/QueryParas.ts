@@ -16,3 +16,10 @@ export class CustomersParas extends Pages{
 export class ConsumeParas extends Pages{
   customerId:string;
 }
+
+
+export class StatisteParas extends  Pages{
+  bcreatetime:string;
+  ecreatetime:string;
+  groupType:string='1';
+}

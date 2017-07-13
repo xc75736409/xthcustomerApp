@@ -1,16 +1,18 @@
-import { NgModule } from '@angular/core';
-import { IonicPageModule } from 'ionic-angular';
-import { StatistePage } from './statiste';
+import {NgModule} from '@angular/core';
+import {IonicPageModule} from 'ionic-angular';
+import {StatistePage} from './statiste';
 
 @NgModule({
   declarations: [
-    StatistePage,
+    StatistePage
   ],
   imports: [
     IonicPageModule.forChild(StatistePage),
   ],
   exports: [
     StatistePage
+
   ]
 })
-export class StatistePageModule {}
+export class StatistePageModule {
+}
