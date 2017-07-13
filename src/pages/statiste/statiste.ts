@@ -3,6 +3,7 @@ import {InfiniteScroll, IonicPage, NavController, NavParams, Refresher} from 'io
 import {StatisteParas} from "../../Entity/QueryParas";
 import {NativeService} from "../../providers/NativeService";
 import {AppServer} from "../../services/appServer";
+import {ConsumeListPage} from "../management/consume_list/consume_list";
 
 /**
  * Generated class for the StatistePage page.
@@ -34,23 +35,22 @@ export class StatistePage {
 
   doRefresh(refresher) {
     this.refresher = refresher;
-    this.statisteParas.nowPage = 1;
-    this.opState = 2;
-    this.loadData();
+    this.loadData(true,2);
   }
 
   doInfinite(infiniteScroll) {
-    this.infiniteScroll = infiniteScroll
-    this.opState = 1;
+    this.infiniteScroll = infiniteScroll;
     if (this.statisteParas.maxSize == 0) {
       infiniteScroll.complete();
       this.nativeService.showToast("没有更多的信息", 2000);
       return;
     }
     this.statisteParas.nowPage++;
-    this.loadData();
+    this.loadData(false,1);
   }
-  loadData() {
+  loadData(flag:boolean,opState:number) {
+    this.opState = opState;
+    if(flag) this.statisteParas.nowPage = 1;
     this.nativeService.showLoading();
     this.appServer.httpPost("/app/statistics/statisticsGroup", this.statisteParas).subscribe(
       res => {
@@ -81,6 +81,6 @@ export class StatistePage {
 
   //
   consumeList(item){
-    //this.navCtrl.push(ConsumeListPage,{ item:item });
+    this.navCtrl.push(ConsumeListPage,{ item:item });
   }
 }
