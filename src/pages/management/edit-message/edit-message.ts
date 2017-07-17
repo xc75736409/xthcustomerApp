@@ -31,6 +31,14 @@ export class EditMessagePage {
   }
 
   save() {
+    if (this.customer.name == '' || this.customer.name == null) {
+      this.nativeService.showToast("请输入电话号码！")
+      return;
+    }
+    if (this.customer.phone == '' || this.customer.phone == null) {
+      this.nativeService.showToast("请输入电话号码！")
+      return;
+    }
     this.nativeService.showLoading();
     this.appServer.httpPost("/app/customer/operateCustomer", this.customer).subscribe(
       res => {

@@ -150,6 +150,7 @@ export class NativeService {
       if (state == '501') errMsg = '用户名或密码错误';
       if (state == '502') errMsg = '查询失败';
       if (state == '503') errMsg = '操作失败';
+      if (state == '504') errMsg = '电话号码已存在';
       this.alertCtrl.create({
         title: '错误编号'+state,
         subTitle: errMsg,

@@ -25,7 +25,11 @@
     </ion-item>
     <ion-item>
       <ion-label fixed>性别：</ion-label>
-      <ion-input [(ngModel)]="customer.sex"></ion-input>
+      <!--<ion-input [(ngModel)]="customer.sex"></ion-input>-->
+      <ion-select [(ngModel)]="customer.sex" interface="popover">
+        <ion-option value="男">男</ion-option>
+        <ion-option value="女">女</ion-option>
+      </ion-select>
     </ion-item>
     <ion-item>
       <ion-label fixed>公司：</ion-label>
